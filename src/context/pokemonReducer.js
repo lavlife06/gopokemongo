@@ -1,7 +1,14 @@
-import {} from "./types";
+import { GET_POKEMONS } from "./types";
 
 const PokemonReducer = (state, action) => {
-    switch (action.type) {
+    const { type, payload } = action;
+
+    switch (type) {
+        case GET_POKEMONS:
+            return {
+                ...state,
+                pokemons: payload,
+            };
         default:
             return state;
     }
