@@ -20,6 +20,7 @@ const PokemonDetails = () => {
         moves,
         species,
         types,
+        moreSpecificDetails,
     } = pokemon;
 
     return (
@@ -66,18 +67,47 @@ const PokemonDetails = () => {
                     return <p>{held_item.item.name}</p>;
                 })}
             </div>
-            <div className="arraydiv" style={{ maxHeight: "170px" }}>
-                <strong>{name + "'s "} moves :</strong>
-                {moves.map((item) => {
-                    return <p>{item.move.name}</p>;
-                })}
-            </div>
             <div className="arraydiv">
                 <strong>Types :</strong>
                 {types.map((item) => {
                     return <p>{item.type.name}</p>;
                 })}
             </div>
+            <div
+                className="arraydiv"
+                style={{ maxHeight: "120px", marginBottom: "15px" }}
+            >
+                <strong>{name + "'s "} moves :</strong>
+                {moves.map((item) => {
+                    return <p>{item.move.name}</p>;
+                })}
+            </div>
+            {moreSpecificDetails &&
+                moreSpecificDetails.map((details) => {
+                    if (details.type == "abilities") {
+                        return (
+                            <div className="arraydiv">
+                                <strong>{details.display + " : "}</strong>
+                                {details.moredetails.map((effectDetails) =>
+                                    effectDetails.effect_entries.map((ele) => (
+                                        <div style={{ paddingLeft: "15px" }}>
+                                            <div className="arraydiv">
+                                                <strong>effect :</strong>
+                                                <p>{ele.effect}</p>
+                                            </div>
+                                            <div className="arraydiv">
+                                                <strong>short_effect :</strong>
+                                                <p>{ele.short_effect}</p>
+                                            </div>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+                        );
+                    } else {
+                        return null;
+                    }
+                })}
         </Fragment>
     );
 };

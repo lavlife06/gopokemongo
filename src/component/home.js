@@ -9,18 +9,16 @@ import PokemonDetails from "./pokemonDetails";
 const { Search } = Input;
 const { Header, Content, Sider } = Layout;
 const Home = () => {
-    const { pokemons, getPokemonList, getSelectedPokemonDetails, pokemon } =
-        useContext(PokemonContext);
+    const {
+        pokemons,
+        getPokemonList,
+        getSelectedPokemonDetails,
+        pokemon,
+        pokemonSpecifications,
+    } = useContext(PokemonContext);
     const [searchedPokemons, setSearchedPokemons] = useState([]);
     const [isSearch, setIsSearch] = useState(false);
     const [text, setText] = useState("");
-    const [pokemonSpecifications] = useState([
-        "Detailed Abilities",
-        "Form's details",
-        "Species information",
-        "Held_item's details",
-        "Types information",
-    ]);
 
     useEffect(() => {
         getPokemonList();
@@ -67,9 +65,9 @@ const Home = () => {
                         defaultOpenKeys={["sub1"]}
                         style={{ height: "100%", borderRight: 0 }}
                     >
-                        {pokemonSpecifications.map((specification, index) => (
-                            <Menu.Item key={specification + index}>
-                                {specification}
+                        {pokemonSpecifications.map((item) => (
+                            <Menu.Item key={item.id}>
+                                {item.display}
                                 <input
                                     type="checkbox"
                                     style={{
