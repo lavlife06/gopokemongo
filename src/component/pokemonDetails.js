@@ -141,6 +141,63 @@ const PokemonDetails = () => {
                                 ))}
                             </div>
                         );
+                    } else if (details.type == "species") {
+                        return (
+                            <div className="arraydiv">
+                                <strong>{details.display + " : "}</strong>
+                                {details.moredetails.map(
+                                    (speciesinformation) => (
+                                        <div style={{ paddingLeft: "15px" }}>
+                                            <div className="arraydiv">
+                                                <strong>generation :</strong>
+                                                <p>
+                                                    {
+                                                        speciesinformation
+                                                            .generation.name
+                                                    }
+                                                </p>
+                                            </div>
+                                            <div className="arraydiv">
+                                                <strong>color :</strong>
+                                                <p>
+                                                    {
+                                                        speciesinformation.color
+                                                            .name
+                                                    }
+                                                </p>
+                                            </div>
+                                            <div className="arraydiv">
+                                                <strong>shape :</strong>
+                                                <p>
+                                                    {
+                                                        speciesinformation.shape
+                                                            .name
+                                                    }
+                                                </p>
+                                            </div>
+                                            <div className="arraydiv">
+                                                <strong>capture_rate :</strong>
+                                                <p>
+                                                    {
+                                                        speciesinformation.capture_rate
+                                                    }
+                                                </p>
+                                            </div>
+                                            <div className="arraydiv">
+                                                <strong>
+                                                    base_happiness :
+                                                </strong>
+                                                <p>
+                                                    {
+                                                        speciesinformation.base_happiness
+                                                    }
+                                                </p>
+                                            </div>
+                                        </div>
+                                    )
+                                )}
+                            </div>
+                        );
                     } else {
                         return null;
                     }

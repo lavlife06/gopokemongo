@@ -23,7 +23,7 @@ const PokemonState = (props) => {
             },
             {
                 id: 2,
-                getinformation: false,
+                getinformation: true,
                 type: "species",
                 display: "Species information",
             },
@@ -76,14 +76,14 @@ const PokemonState = (props) => {
                         for (let ele of data.abilities) {
                             const response = await fetch(ele.ability.url);
                             const specificdata = await response.json();
-                            console.log(specificdata, "specificdata");
+                            // console.log(specificdata, "specificdata");
                             moredetails.push(specificdata);
                         }
                     } else if (item.type == "forms") {
                         for (let ele of data.forms) {
                             const response = await fetch(ele.url);
                             const specificdata = await response.json();
-                            console.log(specificdata, "specificdata");
+                            // console.log(specificdata, "specificdata");
                             moredetails.push(specificdata);
                         }
                     } else if (item.type == "species") {
