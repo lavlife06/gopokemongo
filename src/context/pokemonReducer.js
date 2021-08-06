@@ -1,4 +1,8 @@
-import { GET_POKEMONS, GET_POKEMON_DETAILS } from "./types";
+import {
+    CHANGE_SPECIFICATIONS,
+    GET_POKEMONS,
+    GET_POKEMON_DETAILS,
+} from "./types";
 
 const PokemonReducer = (state, action) => {
     const { type, payload } = action;
@@ -13,6 +17,11 @@ const PokemonReducer = (state, action) => {
             return {
                 ...state,
                 pokemon: payload,
+            };
+        case CHANGE_SPECIFICATIONS:
+            return {
+                ...state,
+                pokemonSpecifications: payload,
             };
         default:
             return state;

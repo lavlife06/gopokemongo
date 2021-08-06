@@ -19,13 +19,13 @@ const PokemonDetails = () => {
             {moreSpecificDetails &&
                 moreSpecificDetails.map((details) => {
                     if (details.type == "abilities") {
-                        <PokemonAbilities details={details} />;
+                        return <PokemonAbilities details={details} />;
                     } else if (details.type == "forms") {
-                        <PokemonForms details={details} />;
+                        return <PokemonForms details={details} />;
                     } else if (details.type == "species") {
-                        <PokemonSpecies details={details} />;
+                        return <PokemonSpecies details={details} />;
                     } else {
-                        <PokemonTypes details={details} />;
+                        return <PokemonTypes details={details} />;
                     }
                 })}
         </Fragment>

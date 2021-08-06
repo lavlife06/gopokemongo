@@ -14,6 +14,7 @@ const Home = () => {
         getSelectedPokemonDetails,
         pokemon,
         pokemonSpecifications,
+        changePokemonSpecifications,
     } = useContext(PokemonContext);
     const [searchedPokemons, setSearchedPokemons] = useState([]);
     const [isSearch, setIsSearch] = useState(false);
@@ -24,22 +25,22 @@ const Home = () => {
         console.log("rendered inside useeffect");
     }, []);
 
-    const onChangeHandler = (e) => {
-        setText(e.target.value);
-        if (e.target.value) {
-            setSearchedPokemons(
-                pokemons.filter(
-                    (item) =>
-                        item.name.substring(0, e.target.value.length) ==
-                        e.target.value
-                )
-            );
-            setIsSearch(true);
-        } else {
-            setSearchedPokemons([]);
-            setIsSearch(false);
-        }
-    };
+    // const onChangeHandler = (e) => {
+    //     setText(e.target.value);
+    //     if (e.target.value) {
+    //         setSearchedPokemons(
+    //             pokemons.filter(
+    //                 (item) =>
+    //                     item.name.substring(0, e.target.value.length) ==
+    //                     e.target.value
+    //             )
+    //         );
+    //         setIsSearch(true);
+    //     } else {
+    //         setSearchedPokemons([]);
+    //         setIsSearch(false);
+    //     }
+    // };
 
     console.log("rendered");
     return (
@@ -73,7 +74,10 @@ const Home = () => {
                                         marginTop: "15px",
                                     }}
                                     onChange={(e) => {
-                                        console.log(e.target.checked);
+                                        changePokemonSpecifications(
+                                            item.id,
+                                            e.target.checked
+                                        );
                                     }}
                                 />
                             </Menu.Item>
@@ -91,12 +95,10 @@ const Home = () => {
                         enterButton
                         value={text}
                         onSearch={(value) => {
+                            console.log(value);
                             if (value) {
                                 getSelectedPokemonDetails(value);
                             }
-                        }}
-                        onChange={(e) => {
-                            onChangeHandler(e);
                         }}
                     />
                     <Menu

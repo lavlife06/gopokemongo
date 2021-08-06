@@ -1,6 +1,10 @@
 import React, { useReducer } from "react";
 import PokemonReducer from "./pokemonReducer";
-import { GET_POKEMONS, GET_POKEMON_DETAILS } from "./types";
+import {
+    CHANGE_SPECIFICATIONS,
+    GET_POKEMONS,
+    GET_POKEMON_DETAILS,
+} from "./types";
 import PokemonContext from "./pokemonContext";
 
 //useReducer is an alternative to useState.
@@ -11,25 +15,25 @@ const PokemonState = (props) => {
         pokemonSpecifications: [
             {
                 id: 0,
-                getinformation: true,
+                getinformation: false,
                 type: "abilities",
                 display: "Detailed Abilities",
             },
             {
                 id: 1,
-                getinformation: true,
+                getinformation: false,
                 type: "forms",
                 display: "Form's details",
             },
             {
                 id: 2,
-                getinformation: true,
+                getinformation: false,
                 type: "species",
                 display: "Species information",
             },
             {
                 id: 4,
-                getinformation: true,
+                getinformation: false,
                 type: "types",
                 display: "Types information",
             },
@@ -55,6 +59,23 @@ const PokemonState = (props) => {
         }
     };
 
+    const changePokemonSpecifications = (specificationId, value) => {
+        try {
+            dispatch({
+                type: CHANGE_SPECIFICATIONS,
+                payload: state.pokemonSpecifications.map((item) => {
+                    if (item.id == specificationId) {
+                        return { ...item, getinformation: value };
+                    } else {
+                        return item;
+                    }
+                }),
+            });
+        } catch (err) {
+            alert("Their is some error occured, please try again later");
+        }
+    };
+
     const getSelectedPokemonDetails = async (pokemonidorname) => {
         try {
             let selectedPokemonSpecifications = [];
@@ -62,6 +83,10 @@ const PokemonState = (props) => {
             const response = await fetch(
                 `https://pokeapi.co/api/v2/pokemon/${pokemonidorname}`
             );
+            if (response.status == 404) {
+                return alert(`No pokemon of ${pokemonidorname} found`);
+            }
+
             let data = await response.json();
 
             for (let item of state.pokemonSpecifications) {
@@ -131,11 +156,8 @@ const PokemonState = (props) => {
                 type: GET_POKEMON_DETAILS,
                 payload: data,
             });
-        } catch (err) {
-            if (err.response.code == 404) {
-                alert(`No pokemon of ${pokemonidorname} found`);
-            }
-            // alert("Their is some error occured, please try again later");
+        } catch (error) {
+            alert("Their is some error occured, please try again later");
         }
     };
 
@@ -147,6 +169,7 @@ const PokemonState = (props) => {
                 pokemonSpecifications: state.pokemonSpecifications,
                 getPokemonList,
                 getSelectedPokemonDetails,
+                changePokemonSpecifications,
             }}
         >
             {props.children}
