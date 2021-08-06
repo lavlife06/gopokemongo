@@ -17,7 +17,7 @@ const PokemonState = (props) => {
             },
             {
                 id: 1,
-                getinformation: false,
+                getinformation: true,
                 type: "forms",
                 display: "Form's details",
             },

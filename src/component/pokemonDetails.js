@@ -104,6 +104,43 @@ const PokemonDetails = () => {
                                 )}
                             </div>
                         );
+                    } else if (details.type == "forms") {
+                        return (
+                            <div className="arraydiv">
+                                <strong>{details.display + " : "}</strong>
+                                {details.moredetails.map((forminformation) => (
+                                    <div style={{ paddingLeft: "15px" }}>
+                                        <div className="arraydiv">
+                                            <strong>
+                                                this form only used in battle :
+                                            </strong>
+                                            <p>
+                                                {forminformation.is_battle_only
+                                                    ? "true"
+                                                    : "false"}
+                                            </p>
+                                        </div>
+                                        <div className="arraydiv">
+                                            <strong>default form :</strong>
+                                            <p>
+                                                {forminformation.is_default
+                                                    ? "true"
+                                                    : "false"}
+                                            </p>
+                                        </div>
+                                        <div className="arraydiv">
+                                            <strong>version_group :</strong>
+                                            <p>
+                                                {
+                                                    forminformation
+                                                        .version_group.name
+                                                }
+                                            </p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        );
                     } else {
                         return null;
                     }
