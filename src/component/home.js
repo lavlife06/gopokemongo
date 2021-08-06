@@ -1,7 +1,6 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import PokemonContext from "../context/pokemonContext";
 import { Layout, Menu, Input } from "antd";
-import {} from "@ant-design/icons";
 import "antd/dist/antd.css";
 import "./component.css";
 import PokemonDetails from "./pokemonDetails";
@@ -54,7 +53,6 @@ const Home = () => {
                     style={{ float: "right" }}
                 >
                     <Menu.Item key="1">Home</Menu.Item>
-                    {/* <Menu.Item key="2">My Pokemons Deck</Menu.Item> */}
                 </Menu>
             </Header>
             <Layout style={{ marginTop: "20px" }}>
@@ -92,13 +90,17 @@ const Home = () => {
                         allowClear
                         enterButton
                         value={text}
+                        onSearch={(value) => {
+                            if (value) {
+                                getSelectedPokemonDetails(value);
+                            }
+                        }}
                         onChange={(e) => {
                             onChangeHandler(e);
                         }}
                     />
                     <Menu
                         mode="inline"
-                        // defaultSelectedKeys={0}
                         defaultOpenKeys={["sub1"]}
                         style={{
                             height: "93%",

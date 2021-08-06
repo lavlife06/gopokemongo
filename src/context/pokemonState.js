@@ -28,14 +28,8 @@ const PokemonState = (props) => {
                 display: "Species information",
             },
             {
-                id: 3,
-                getinformation: false,
-                type: "held_items",
-                display: "Held_item's details",
-            },
-            {
                 id: 4,
-                getinformation: false,
+                getinformation: true,
                 type: "types",
                 display: "Types information",
             },
@@ -47,7 +41,9 @@ const PokemonState = (props) => {
 
     const getPokemonList = async () => {
         try {
-            const response = await fetch("https://pokeapi.co/api/v2/pokemon");
+            const response = await fetch(
+                "https://pokeapi.co/api/v2/pokemon?limit=200&offset=200"
+            );
             const data = await response.json();
 
             dispatch({
@@ -59,12 +55,12 @@ const PokemonState = (props) => {
         }
     };
 
-    const getSelectedPokemonDetails = async (pokemonid) => {
+    const getSelectedPokemonDetails = async (pokemonidorname) => {
         try {
             let selectedPokemonSpecifications = [];
 
             const response = await fetch(
-                `https://pokeapi.co/api/v2/pokemon/${pokemonid}`
+                `https://pokeapi.co/api/v2/pokemon/${pokemonidorname}`
             );
             let data = await response.json();
 
@@ -76,34 +72,44 @@ const PokemonState = (props) => {
                         for (let ele of data.abilities) {
                             const response = await fetch(ele.ability.url);
                             const specificdata = await response.json();
-                            // console.log(specificdata, "specificdata");
-                            moredetails.push(specificdata);
+                            let newObj = {
+                                effect_entries: specificdata.effect_entries,
+                            };
+                            moredetails.push(newObj);
                         }
                     } else if (item.type == "forms") {
                         for (let ele of data.forms) {
                             const response = await fetch(ele.url);
                             const specificdata = await response.json();
-                            // console.log(specificdata, "specificdata");
-                            moredetails.push(specificdata);
+                            let newObj = {
+                                is_battle_only: specificdata.is_battle_only,
+                                is_default: specificdata.is_default,
+                                version_group: specificdata.version_group.name,
+                            };
+                            moredetails.push(newObj);
                         }
                     } else if (item.type == "species") {
                         const response = await fetch(data.species.url);
                         const specificdata = await response.json();
-                        console.log(specificdata, "specificdata");
-                        moredetails.push(specificdata);
-                    } else if (item.type == "held_items") {
-                        for (let ele of data.held_items) {
-                            const response = await fetch(ele.item.url);
-                            const specificdata = await response.json();
-                            console.log(specificdata, "specificdata");
-                            moredetails.push(specificdata);
-                        }
+                        let newObj = {
+                            generation: specificdata.generation.name,
+                            color: specificdata.color.name,
+                            shape: specificdata.shape.name,
+                            capture_rate: specificdata.capture_rate,
+                            base_happiness: specificdata.base_happiness,
+                        };
+                        moredetails.push(newObj);
                     } else {
                         for (let ele of data.types) {
                             const response = await fetch(ele.type.url);
                             const specificdata = await response.json();
-                            console.log(specificdata, "specificdata");
-                            moredetails.push(specificdata);
+                            let newObj = {
+                                generation: specificdata.generation.name,
+                                type: specificdata.name,
+                                moves: specificdata.moves.length,
+                                pokemons: specificdata.pokemon.length,
+                            };
+                            moredetails.push(newObj);
                         }
                     }
 
@@ -126,6 +132,9 @@ const PokemonState = (props) => {
                 payload: data,
             });
         } catch (err) {
+            if (err.response.code == 404) {
+                alert(`No pokemon of ${pokemonidorname} found`);
+            }
             // alert("Their is some error occured, please try again later");
         }
     };
