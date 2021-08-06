@@ -14,7 +14,9 @@ const PokemonState = (props) => {
 
     const getPokemonList = async () => {
         try {
-            const response = await fetch("https://pokeapi.co/api/v2/pokemon");
+            const response = await fetch(
+                "https://pokeapi.co/api/v2/pokemon?limit=918&offset=200"
+            );
             const data = await response.json();
 
             dispatch({
