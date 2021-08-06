@@ -1,14 +1,16 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import PokemonContext from "../context/pokemonContext";
 import { Layout, Menu, Input } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
+import {} from "@ant-design/icons";
 import "antd/dist/antd.css";
 import "./component.css";
+import PokemonDetails from "./pokemonDetails";
 
 const { Search } = Input;
 const { Header, Content, Sider } = Layout;
 const Home = () => {
-    const { pokemons, getPokemonList } = useContext(PokemonContext);
+    const { pokemons, getPokemonList, getSelectedPokemonDetails, pokemon } =
+        useContext(PokemonContext);
     const [searchedPokemons, setSearchedPokemons] = useState([]);
     const [isSearch, setIsSearch] = useState(false);
     const [text, setText] = useState("");
@@ -16,6 +18,24 @@ const Home = () => {
     useEffect(() => {
         getPokemonList();
     }, []);
+
+    const onChangeHandler = (e) => {
+        setText(e.target.value);
+        if (e.target.value) {
+            setSearchedPokemons(
+                pokemons.filter(
+                    (item) =>
+                        item.name.substring(0, e.target.value.length) ==
+                        e.target.value
+                )
+            );
+            setIsSearch(true);
+        } else {
+            setSearchedPokemons([]);
+            setIsSearch(false);
+        }
+    };
+
     console.log("rendered");
     return (
         <Layout>
@@ -48,7 +68,7 @@ const Home = () => {
                 <Sider
                     width={200}
                     className="site-layout-background"
-                    style={{ marginLeft: "20px" }}
+                    style={{ marginLeft: "20px", height: "60vh" }}
                 >
                     <Search
                         placeholder="search pokemons"
@@ -57,33 +77,28 @@ const Home = () => {
                         value={text}
                         // size="large"
                         onChange={(e) => {
-                            setText(e.target.value);
-                            if (e.target.value) {
-                                setSearchedPokemons(
-                                    pokemons.filter(
-                                        (item) =>
-                                            item.name.substring(
-                                                0,
-                                                e.target.value.length
-                                            ) == e.target.value
-                                    )
-                                );
-                                setIsSearch(true);
-                            } else {
-                                setSearchedPokemons([]);
-                                setIsSearch(false);
-                            }
+                            onChangeHandler(e);
                         }}
                     />
                     <Menu
                         mode="inline"
                         // defaultSelectedKeys={0}
                         defaultOpenKeys={["sub1"]}
-                        style={{ height: "100%", borderRight: 0 }}
+                        style={{
+                            height: "93%",
+                            borderRight: "0px",
+                            overflowY: "auto",
+                            overflowX: "hidden",
+                        }}
                     >
                         {!isSearch ? (
                             pokemons.map((pokemon, index) => (
-                                <Menu.Item key={index + pokemon.name}>
+                                <Menu.Item
+                                    key={index + pokemon.name}
+                                    onClick={getSelectedPokemonDetails(
+                                        pokemon.url[pokemon.url.length - 2]
+                                    )}
+                                >
                                     {pokemon.name}
                                 </Menu.Item>
                             ))
@@ -118,7 +133,22 @@ const Home = () => {
                             minHeight: 280,
                         }}
                     >
-                        Content
+                        {!pokemon ? (
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                }}
+                            >
+                                <h1>
+                                    Selected Pokemon's details will be shown
+                                    here
+                                </h1>
+                            </div>
+                        ) : (
+                            <PokemonDetails />
+                        )}
                     </Content>
                 </Layout>
             </Layout>
@@ -127,12 +157,3 @@ const Home = () => {
 };
 
 export default Home;
-
-// <div className="">
-//     <h2>Pokemons List</h2>
-//     {pokemons.map((pokemon, index) => (
-//         <div key={index + pokemon.name}>
-//             <p>{pokemon.name}</p>
-//         </div>
-//     ))}
-// </div>

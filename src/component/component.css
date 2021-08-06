@@ -23,3 +23,7 @@
 .site-layout-background {
     background: #fff;
 }
+
+p {
+    margin-right: 12px;
+}

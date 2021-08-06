@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import PokemonReducer from "./pokemonReducer";
-import { GET_POKEMONS } from "./types";
+import { GET_POKEMONS, GET_POKEMON_DETAILS } from "./types";
 import PokemonContext from "./pokemonContext";
 
 //useReducer is an alternative to useState.
@@ -8,6 +8,7 @@ import PokemonContext from "./pokemonContext";
 const PokemonState = (props) => {
     const initialState = {
         pokemons: [],
+        pokemon: null,
     };
 
     const [state, dispatch] = useReducer(PokemonReducer, initialState);
@@ -28,11 +29,28 @@ const PokemonState = (props) => {
         }
     };
 
+    const getSelectedPokemonDetails = async (pokemonid) => {
+        try {
+            const response = await fetch(
+                `https://pokeapi.co/api/v2/pokemon/${pokemonid}`
+            );
+            const data = await response.json();
+
+            dispatch({
+                type: GET_POKEMON_DETAILS,
+                payload: data,
+            });
+        } catch (err) {
+            alert("Their is some error occured, please try again later");
+        }
+    };
+
     return (
         <PokemonContext.Provider
             value={{
                 pokemons: state.pokemons,
                 getPokemonList,
+                getSelectedPokemonDetails,
             }}
         >
             {props.children}
