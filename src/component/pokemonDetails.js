@@ -46,33 +46,33 @@ const PokemonDetails = () => {
             </div>
             <div>
                 <strong>Species :</strong>
-                <p>{species}</p>
+                <p>{species.name}</p>
             </div>
-            <div>
+            <div className="arraydiv">
                 <strong>Abilities :</strong>
                 {abilities.map((item) => {
                     return <p>{item.ability.name}</p>;
                 })}
             </div>
-            <div>
+            <div className="arraydiv">
                 <strong>Different forms of {name} :</strong>
                 {forms.map((form) => {
                     return <p>{form.name}</p>;
                 })}
             </div>
-            <div>
+            <div className="arraydiv">
                 <strong>Different items that {name} carries :</strong>
                 {held_items.map((held_item) => {
                     return <p>{held_item.item.name}</p>;
                 })}
             </div>
-            <div>
+            <div className="arraydiv" style={{ maxHeight: "170px" }}>
                 <strong>{name + "'s "} moves :</strong>
                 {moves.map((item) => {
                     return <p>{item.move.name}</p>;
                 })}
             </div>
-            <div>
+            <div className="arraydiv">
                 <strong>Types :</strong>
                 {types.map((item) => {
                     return <p>{item.type.name}</p>;

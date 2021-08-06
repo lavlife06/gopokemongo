@@ -15,9 +15,7 @@ const PokemonState = (props) => {
 
     const getPokemonList = async () => {
         try {
-            const response = await fetch(
-                "https://pokeapi.co/api/v2/pokemon?limit=918&offset=200"
-            );
+            const response = await fetch("https://pokeapi.co/api/v2/pokemon");
             const data = await response.json();
 
             dispatch({
@@ -35,13 +33,13 @@ const PokemonState = (props) => {
                 `https://pokeapi.co/api/v2/pokemon/${pokemonid}`
             );
             const data = await response.json();
-
+            console.log(data, "data");
             dispatch({
                 type: GET_POKEMON_DETAILS,
                 payload: data,
             });
         } catch (err) {
-            alert("Their is some error occured, please try again later");
+            // alert("Their is some error occured, please try again later");
         }
     };
 
@@ -49,6 +47,7 @@ const PokemonState = (props) => {
         <PokemonContext.Provider
             value={{
                 pokemons: state.pokemons,
+                pokemon: state.pokemon,
                 getPokemonList,
                 getSelectedPokemonDetails,
             }}

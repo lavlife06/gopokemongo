@@ -14,9 +14,17 @@ const Home = () => {
     const [searchedPokemons, setSearchedPokemons] = useState([]);
     const [isSearch, setIsSearch] = useState(false);
     const [text, setText] = useState("");
+    const [pokemonSpecifications] = useState([
+        "Detailed Abilities",
+        "Form's details",
+        "Species information",
+        "Held_item's details",
+        "Types information",
+    ]);
 
     useEffect(() => {
         getPokemonList();
+        console.log("rendered inside useeffect");
     }, []);
 
     const onChangeHandler = (e) => {
@@ -40,29 +48,40 @@ const Home = () => {
     return (
         <Layout>
             <Header className="header">
-                <div className="logo" />
+                <div className="logo">PokemonGo</div>
                 <Menu
                     theme="dark"
                     mode="horizontal"
-                    defaultSelectedKeys={["2"]}
+                    defaultSelectedKeys={["1"]}
+                    style={{ float: "right" }}
                 >
-                    <Menu.Item key="1">nav 1</Menu.Item>
-                    <Menu.Item key="2">nav 2</Menu.Item>
-                    <Menu.Item key="3">nav 3</Menu.Item>
+                    <Menu.Item key="1">Home</Menu.Item>
+                    {/* <Menu.Item key="2">My Pokemons Deck</Menu.Item> */}
                 </Menu>
             </Header>
             <Layout style={{ marginTop: "20px" }}>
                 <Sider width={200} className="site-layout-background">
                     <Menu
                         mode="inline"
-                        defaultSelectedKeys={["1"]}
+                        defaultSelectedKeys={["Detailed Abilities0"]}
                         defaultOpenKeys={["sub1"]}
                         style={{ height: "100%", borderRight: 0 }}
                     >
-                        <Menu.Item key="1">option1</Menu.Item>
-                        <Menu.Item key="2">option2</Menu.Item>
-                        <Menu.Item key="3">option3</Menu.Item>
-                        <Menu.Item key="4">option4</Menu.Item>
+                        {pokemonSpecifications.map((specification, index) => (
+                            <Menu.Item key={specification + index}>
+                                {specification}
+                                <input
+                                    type="checkbox"
+                                    style={{
+                                        float: "right",
+                                        marginTop: "15px",
+                                    }}
+                                    onChange={(e) => {
+                                        console.log(e.target.checked);
+                                    }}
+                                />
+                            </Menu.Item>
+                        ))}
                     </Menu>
                 </Sider>
                 <Sider
@@ -75,7 +94,6 @@ const Home = () => {
                         allowClear
                         enterButton
                         value={text}
-                        // size="large"
                         onChange={(e) => {
                             onChangeHandler(e);
                         }}
@@ -90,15 +108,13 @@ const Home = () => {
                             overflowY: "auto",
                             overflowX: "hidden",
                         }}
+                        onClick={(e) => {
+                            getSelectedPokemonDetails(parseInt(e.key[0]) + 1);
+                        }}
                     >
                         {!isSearch ? (
                             pokemons.map((pokemon, index) => (
-                                <Menu.Item
-                                    key={index + pokemon.name}
-                                    onClick={getSelectedPokemonDetails(
-                                        pokemon.url[pokemon.url.length - 2]
-                                    )}
-                                >
+                                <Menu.Item key={index + pokemon.name}>
                                     {pokemon.name}
                                 </Menu.Item>
                             ))
