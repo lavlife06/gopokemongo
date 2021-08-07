@@ -23,7 +23,7 @@
   },
   "engines": { 
    "node": "14.17.4" 
- }
+ },
   "eslintConfig": {
     "extends": [
       "react-app",
