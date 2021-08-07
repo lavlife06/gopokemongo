@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import "antd/dist/antd.css";
-import "./component.css";
+import "../component.css";
 
 const PokemonTypes = ({ details }) => {
     return (

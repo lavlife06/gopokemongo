@@ -153,7 +153,6 @@ const PokemonState = (props) => {
                 data.moreSpecificDetails = null;
             }
 
-            console.log(data, "data");
             dispatch({
                 type: GET_POKEMON_DETAILS,
                 payload: data,

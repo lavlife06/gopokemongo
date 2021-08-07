@@ -13,24 +13,14 @@ const Home = () => {
 
     useEffect(() => {
         getPokemonList();
-        console.log("rendered inside useeffect");
     }, []);
 
-    console.log("rendered");
     return (
-        <Layout>
+        <Layout style={{ backgroundColor: "aqua" }}>
             <Header className="header">
                 <div className="logo">PokemonGo</div>
-                <Menu
-                    theme="dark"
-                    mode="horizontal"
-                    defaultSelectedKeys={["1"]}
-                    style={{ float: "right" }}
-                >
-                    <Menu.Item key="1">Home</Menu.Item>
-                </Menu>
             </Header>
-            <Layout style={{ marginTop: "20px" }}>
+            <Layout style={{ marginTop: "20px", backgroundColor: "aqua" }}>
                 <PokemonList />
                 <PokemonSpecifications />
                 <PokemonDetails />

@@ -37,3 +37,29 @@ p {
     max-height: 100px;
     overflow: auto;
 }
+
+.menu::-webkit-scrollbar {
+    display: none;
+}
+
+.content {
+    padding: 24px;
+    margin: 0px;
+    min-height: 280px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+/* .content::-webkit-scrollbar {
+    display: none;
+} */
+
+.arraydiv::-webkit-scrollbar {
+    display: none;
+}
+
+.site-layout-background {
+    box-shadow: rgb(0 0 0 / 25%) 0px 54px 55px, rgb(0 0 0 / 12%) 0px -12px 30px,
+        rgb(0 0 0 / 12%) 0px 4px 6px, rgb(0 0 0 / 17%) 0px 12px 13px,
+        rgb(0 0 0 / 9%) 0px -3px 5px;
+}

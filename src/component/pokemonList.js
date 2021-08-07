@@ -19,7 +19,6 @@ const PokemonList = () => {
 
     useEffect(() => {
         getPokemonList();
-        console.log("rendered inside useeffect");
     }, []);
 
     const onChangeHandler = (e) => {
@@ -39,7 +38,6 @@ const PokemonList = () => {
         }
     };
 
-    console.log("rendered");
     return (
         <Sider
             width={200}
@@ -55,13 +53,13 @@ const PokemonList = () => {
                     onChangeHandler(e);
                 }}
                 onSearch={(value) => {
-                    console.log(value);
                     if (value) {
                         getSelectedPokemonDetails(value);
                     }
                 }}
             />
             <Menu
+                className="menu"
                 mode="inline"
                 defaultOpenKeys={["sub1"]}
                 style={{

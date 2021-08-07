@@ -14,10 +14,8 @@ const PokemonSpecifications = () => {
 
     useEffect(() => {
         getPokemonList();
-        console.log("rendered inside useeffect");
     }, []);
 
-    console.log("rendered");
     return (
         <Sider
             width={240}
@@ -29,7 +27,8 @@ const PokemonSpecifications = () => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: "16px",
+                    fontSize: "14px",
+                    paddingTop: "6px",
                 }}
             >
                 <strong> Select Pokemon Specifications</strong>

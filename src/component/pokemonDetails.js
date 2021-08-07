@@ -1,10 +1,10 @@
 import React, { Fragment, useContext } from "react";
 import PokemonContext from "../context/pokemonContext";
 import BasicPokemonDetails from "./basicPokemonDetails";
-import PokemonAbilities from "./pokemonAbilities";
-import PokemonForms from "./pokemonForms";
-import PokemonSpecies from "./pokemonSpecies";
-import PokemonTypes from "./pokemonTypes";
+import PokemonAbilities from "./PokemonSpecification/pokemonAbilities";
+import PokemonForms from "./PokemonSpecification/pokemonForms";
+import PokemonSpecies from "./PokemonSpecification/pokemonSpecies";
+import PokemonTypes from "./PokemonSpecification/pokemonTypes";
 import { Layout } from "antd";
 import "antd/dist/antd.css";
 import "./component.css";
@@ -15,29 +15,41 @@ const PokemonDetails = () => {
     const { pokemon } = useContext(PokemonContext);
 
     return (
-        <Layout style={{ padding: "0 24px 24px" }}>
+        <Layout style={{ padding: "0 24px 24px", backgroundColor: "aqua" }}>
             <Content
-                className="site-layout-background"
+                className="site-layout-background content"
                 style={{
                     padding: 24,
                     margin: 0,
-                    minHeight: "280px",
+                    minHeight: "60vh",
                     maxHeight: "80vh",
                     overflowY: "auto",
                 }}
             >
                 {!pokemon ? (
-                    <div
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
-                    >
-                        <h1>Selected Pokemon's details will be shown here</h1>
-                    </div>
+                    <Fragment>
+                        <div>
+                            <h1>Pokemon Details</h1>
+                            <hr style={{ backgroundColor: "black" }} />
+                        </div>
+                        <div
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                        >
+                            <h1>
+                                Selected Pokemon's details will be shown here
+                            </h1>
+                        </div>
+                    </Fragment>
                 ) : (
                     <Fragment>
+                        <div>
+                            <h1>Pokemon Details</h1>
+                            <hr style={{ backgroundColor: "black" }} />
+                        </div>
                         <BasicPokemonDetails />
                         {pokemon.moreSpecificDetails &&
                             pokemon.moreSpecificDetails.map((details) => {
