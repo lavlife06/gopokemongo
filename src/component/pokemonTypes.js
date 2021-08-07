@@ -5,8 +5,15 @@ import "./component.css";
 const PokemonTypes = ({ details }) => {
     return (
         <Fragment>
-            <div className="arraydiv">
-                <strong>{details.display + " : "}</strong>
+            <strong>{details.display + " : "}</strong>
+            <div
+                className="arraydiv"
+                style={{
+                    marginTop: "7px",
+                    marginBottom: "15px",
+                    // display: "inline-block",
+                }}
+            >
                 {details.moredetails.map((pokemonTypesInformation) => (
                     <div style={{ paddingLeft: "15px" }}>
                         <div className="arraydiv">

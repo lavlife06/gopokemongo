@@ -57,37 +57,10 @@ const Home = () => {
                 </Menu>
             </Header>
             <Layout style={{ marginTop: "20px" }}>
-                <Sider width={200} className="site-layout-background">
-                    <Menu
-                        mode="inline"
-                        defaultSelectedKeys={["Detailed Abilities0"]}
-                        defaultOpenKeys={["sub1"]}
-                        style={{ height: "100%", borderRight: 0 }}
-                    >
-                        {pokemonSpecifications.map((item) => (
-                            <Menu.Item key={item.id}>
-                                {item.display}
-                                <input
-                                    type="checkbox"
-                                    style={{
-                                        float: "right",
-                                        marginTop: "15px",
-                                    }}
-                                    onChange={(e) => {
-                                        changePokemonSpecifications(
-                                            item.id,
-                                            e.target.checked
-                                        );
-                                    }}
-                                />
-                            </Menu.Item>
-                        ))}
-                    </Menu>
-                </Sider>
                 <Sider
                     width={200}
                     className="site-layout-background"
-                    style={{ marginLeft: "20px", height: "60vh" }}
+                    style={{ marginLeft: "10px", height: "60vh" }}
                 >
                     <Search
                         placeholder="search pokemons"
@@ -142,13 +115,57 @@ const Home = () => {
                         )}
                     </Menu>
                 </Sider>
+                <Sider
+                    width={240}
+                    className="site-layout-background"
+                    style={{ marginLeft: "20px", height: "60vh" }}
+                >
+                    <div
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "16px",
+                        }}
+                    >
+                        <strong> Select Pokemon Specifications</strong>
+                    </div>
+                    <hr style={{ backgroundColor: "black" }} />
+                    <Menu
+                        mode="inline"
+                        defaultSelectedKeys={["Detailed Abilities0"]}
+                        defaultOpenKeys={["sub1"]}
+                        style={{ height: "90%", borderRight: 0 }}
+                    >
+                        {pokemonSpecifications.map((item) => (
+                            <Menu.Item key={item.id}>
+                                {item.display}
+                                <input
+                                    type="checkbox"
+                                    style={{
+                                        float: "right",
+                                        marginTop: "15px",
+                                    }}
+                                    onChange={(e) => {
+                                        changePokemonSpecifications(
+                                            item.id,
+                                            e.target.checked
+                                        );
+                                    }}
+                                />
+                            </Menu.Item>
+                        ))}
+                    </Menu>
+                </Sider>
                 <Layout style={{ padding: "0 24px 24px" }}>
                     <Content
                         className="site-layout-background"
                         style={{
                             padding: 24,
                             margin: 0,
-                            minHeight: 280,
+                            minHeight: "280px",
+                            maxHeight: "80vh",
+                            overflowY: "auto",
                         }}
                     >
                         {!pokemon ? (

@@ -63,11 +63,16 @@ const BasicPokemonDetails = () => {
                     return <p>{item.type.name}</p>;
                 })}
             </div>
+            <strong>{name + "'s "} moves :</strong>
             <div
                 className="arraydiv"
-                style={{ maxHeight: "120px", marginBottom: "15px" }}
+                style={{
+                    marginTop: "7px",
+                    maxHeight: "120px",
+                    marginBottom: "15px",
+                    display: "inline-block",
+                }}
             >
-                <strong>{name + "'s "} moves :</strong>
                 {moves.map((item) => {
                     return <p>{item.move.name}</p>;
                 })}

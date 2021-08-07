@@ -5,7 +5,12 @@ import "./component.css";
 const PokemonForms = ({ details }) => {
     return (
         <Fragment>
-            <div className="arraydiv">
+            <div
+                className="arraydiv"
+                style={{
+                    marginBottom: "15px",
+                }}
+            >
                 <strong>{details.display + " : "}</strong>
                 {details.moredetails.map((forminformation) => (
                     <div style={{ paddingLeft: "15px" }}>
