@@ -6,33 +6,35 @@ import {
     GET_POKEMON_DETAILS,
 } from "./types";
 import PokemonContext from "./pokemonContext";
+import { v4 as uuidv4 } from "uuid";
 
 //useReducer is an alternative to useState.
 
 const PokemonState = (props) => {
     const initialState = {
         pokemons: [],
+        allpokemonsList: [],
         pokemonSpecifications: [
             {
-                id: 0,
+                id: uuidv4(),
                 getinformation: false,
                 type: "abilities",
                 display: "Detailed Abilities",
             },
             {
-                id: 1,
+                id: uuidv4(),
                 getinformation: false,
                 type: "forms",
                 display: "Form's details",
             },
             {
-                id: 2,
+                id: uuidv4(),
                 getinformation: false,
                 type: "species",
                 display: "Species information",
             },
             {
-                id: 4,
+                id: uuidv4(),
                 getinformation: false,
                 type: "types",
                 display: "Types information",
@@ -46,7 +48,7 @@ const PokemonState = (props) => {
     const getPokemonList = async () => {
         try {
             const response = await fetch(
-                "https://pokeapi.co/api/v2/pokemon?limit=200&offset=200"
+                "https://pokeapi.co/api/v2/pokemon?limit=918&offset=200"
             );
             const data = await response.json();
 
@@ -165,6 +167,7 @@ const PokemonState = (props) => {
         <PokemonContext.Provider
             value={{
                 pokemons: state.pokemons,
+                allpokemonsList: state.allpokemonsList,
                 pokemon: state.pokemon,
                 pokemonSpecifications: state.pokemonSpecifications,
                 getPokemonList,

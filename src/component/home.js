@@ -11,6 +11,7 @@ const Home = () => {
     const {
         pokemons,
         getPokemonList,
+        allpokemonsList,
         getSelectedPokemonDetails,
         pokemon,
         pokemonSpecifications,
@@ -25,22 +26,22 @@ const Home = () => {
         console.log("rendered inside useeffect");
     }, []);
 
-    // const onChangeHandler = (e) => {
-    //     setText(e.target.value);
-    //     if (e.target.value) {
-    //         setSearchedPokemons(
-    //             pokemons.filter(
-    //                 (item) =>
-    //                     item.name.substring(0, e.target.value.length) ==
-    //                     e.target.value
-    //             )
-    //         );
-    //         setIsSearch(true);
-    //     } else {
-    //         setSearchedPokemons([]);
-    //         setIsSearch(false);
-    //     }
-    // };
+    const onChangeHandler = (e) => {
+        setText(e.target.value);
+        if (e.target.value) {
+            setSearchedPokemons(
+                allpokemonsList.filter(
+                    (item) =>
+                        item.name.substring(0, e.target.value.length) ==
+                        e.target.value
+                )
+            );
+            setIsSearch(true);
+        } else {
+            setSearchedPokemons([]);
+            setIsSearch(false);
+        }
+    };
 
     console.log("rendered");
     return (
@@ -67,6 +68,9 @@ const Home = () => {
                         allowClear
                         enterButton
                         value={text}
+                        onChange={(e) => {
+                            onChangeHandler(e);
+                        }}
                         onSearch={(value) => {
                             console.log(value);
                             if (value) {

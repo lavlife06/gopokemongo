@@ -11,7 +11,8 @@ const PokemonReducer = (state, action) => {
         case GET_POKEMONS:
             return {
                 ...state,
-                pokemons: payload,
+                pokemons: payload.slice(0, 200),
+                allpokemonsList: payload,
             };
         case GET_POKEMON_DETAILS:
             return {
