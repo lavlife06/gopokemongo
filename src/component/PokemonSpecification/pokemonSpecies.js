@@ -5,7 +5,9 @@ import "../component.css";
 const PokemonSpecies = ({ details }) => {
     return (
         <Fragment>
-            <strong>{details.display + " : "}</strong>
+            <strong style={{ fontWeight: "bolder" }}>
+                {details.display + " : "}
+            </strong>
             <div
                 className="arraydiv"
                 style={{

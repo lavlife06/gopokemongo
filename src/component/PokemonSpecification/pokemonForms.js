@@ -11,7 +11,9 @@ const PokemonForms = ({ details }) => {
                     marginBottom: "15px",
                 }}
             >
-                <strong>{details.display + " : "}</strong>
+                <strong style={{ fontWeight: "bolder" }}>
+                    {details.display + " : "}
+                </strong>
                 {details.moredetails.map((forminformation) => (
                     <div style={{ paddingLeft: "15px" }}>
                         <div className="arraydiv">

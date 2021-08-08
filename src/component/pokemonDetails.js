@@ -15,20 +15,13 @@ const PokemonDetails = () => {
     const { pokemon } = useContext(PokemonContext);
 
     return (
-        <Layout style={{ padding: "0 24px 24px", backgroundColor: "aqua" }}>
-            <Content
-                className="site-layout-background content"
-                style={{
-                    padding: 24,
-                    margin: 0,
-                    minHeight: "60vh",
-                    maxHeight: "80vh",
-                    overflowY: "auto",
-                }}
-            >
+        <Layout
+            style={{ padding: "0 24px 24px", backgroundColor: "transparent" }}
+        >
+            <Content className="site-layout-background content">
                 {!pokemon ? (
                     <Fragment>
-                        <div>
+                        <div style={{ fontSize: "19px" }}>
                             <h1>Pokemon Details</h1>
                             <hr style={{ backgroundColor: "black" }} />
                         </div>
@@ -37,6 +30,7 @@ const PokemonDetails = () => {
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
+                                minHeight: "75vh",
                             }}
                         >
                             <h1>
@@ -46,7 +40,7 @@ const PokemonDetails = () => {
                     </Fragment>
                 ) : (
                     <Fragment>
-                        <div>
+                        <div style={{ fontSize: "19px" }}>
                             <h1>Pokemon Details</h1>
                             <hr style={{ backgroundColor: "black" }} />
                         </div>

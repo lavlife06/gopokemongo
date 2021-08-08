@@ -1,5 +1,7 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import PokemonContext from "../context/pokemonContext";
+import pokemonBallImage from "../img/ball.png";
+
 import { Layout, Menu, Input } from "antd";
 import "antd/dist/antd.css";
 import "./component.css";
@@ -39,11 +41,13 @@ const PokemonList = () => {
     };
 
     return (
-        <Sider
-            width={200}
-            className="site-layout-background"
-            style={{ marginLeft: "10px", height: "60vh" }}
-        >
+        <Sider width={220} className="site-layout-background listsider">
+            <div className="diviframe">
+                <iframe
+                    src="https://giphy.com/embed/uLnPIWsqIz2aA"
+                    title="gif of pokemon"
+                />
+            </div>
             <Search
                 placeholder="search pokemons"
                 allowClear
@@ -62,19 +66,21 @@ const PokemonList = () => {
                 className="menu"
                 mode="inline"
                 defaultOpenKeys={["sub1"]}
-                style={{
-                    height: "93%",
-                    borderRight: "0px",
-                    overflowY: "auto",
-                    overflowX: "hidden",
-                }}
                 onClick={(e) => {
                     getSelectedPokemonDetails(parseInt(e.key[0]) + 1);
                 }}
             >
                 {!isSearch ? (
                     pokemons.map((pokemon, index) => (
-                        <Menu.Item key={index + pokemon.name}>
+                        <Menu.Item
+                            className="menuitem"
+                            key={index + pokemon.name}
+                        >
+                            <img
+                                className="pokemonballimage"
+                                src={pokemonBallImage}
+                                alt="dragon ball pic"
+                            />
                             {pokemon.name}
                         </Menu.Item>
                     ))
@@ -82,7 +88,15 @@ const PokemonList = () => {
                     <Fragment>
                         {searchedPokemons.length >= 1 ? (
                             searchedPokemons.map((pokemon, index) => (
-                                <Menu.Item key={index + pokemon.name}>
+                                <Menu.Item
+                                    className="menuitem"
+                                    key={index + pokemon.name}
+                                >
+                                    <img
+                                        className="pokemonballimage"
+                                        src={pokemonBallImage}
+                                        alt="dragon ball pic"
+                                    />
                                     {pokemon.name}
                                 </Menu.Item>
                             ))

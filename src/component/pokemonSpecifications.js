@@ -19,18 +19,9 @@ const PokemonSpecifications = () => {
     return (
         <Sider
             width={240}
-            className="site-layout-background"
-            style={{ marginLeft: "20px", height: "60vh" }}
+            className="site-layout-background specificationsider"
         >
-            <div
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "14px",
-                    paddingTop: "6px",
-                }}
-            >
+            <div className="specificationheader">
                 <strong> Select Pokemon Specifications</strong>
             </div>
             <hr style={{ backgroundColor: "black" }} />
@@ -38,10 +29,14 @@ const PokemonSpecifications = () => {
                 mode="inline"
                 defaultSelectedKeys={["Detailed Abilities0"]}
                 defaultOpenKeys={["sub1"]}
-                style={{ height: "90%", borderRight: 0 }}
+                style={{
+                    height: "90%",
+                    borderRight: 0,
+                    backgroundColor: "rgba(46, 218, 191,0.9)",
+                }}
             >
                 {pokemonSpecifications.map((item) => (
-                    <Menu.Item key={item.id}>
+                    <Menu.Item key={item.id} style={{ fontWeight: "500" }}>
                         {item.display}
                         <input
                             type="checkbox"

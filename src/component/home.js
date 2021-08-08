@@ -16,11 +16,13 @@ const Home = () => {
     }, []);
 
     return (
-        <Layout style={{ backgroundColor: "aqua" }}>
+        <Layout style={{ backgroundColor: "transparent" }}>
             <Header className="header">
                 <div className="logo">PokemonGo</div>
             </Header>
-            <Layout style={{ marginTop: "20px", backgroundColor: "aqua" }}>
+            <Layout
+                style={{ marginTop: "20px", backgroundColor: "transparent" }}
+            >
                 <PokemonList />
                 <PokemonSpecifications />
                 <PokemonDetails />
