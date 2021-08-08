@@ -2,6 +2,7 @@ import {
     CHANGE_SPECIFICATIONS,
     GET_POKEMONS,
     GET_POKEMON_DETAILS,
+    UPDATE_SPECIFICATION_DATA,
 } from "./types";
 
 const PokemonReducer = (state, action) => {
@@ -15,6 +16,7 @@ const PokemonReducer = (state, action) => {
                 allpokemonsList: payload,
             };
         case GET_POKEMON_DETAILS:
+        case UPDATE_SPECIFICATION_DATA:
             return {
                 ...state,
                 pokemon: payload,

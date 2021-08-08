@@ -1,12 +1,19 @@
 import React, { useReducer } from "react";
 import PokemonReducer from "./pokemonReducer";
 import {
+    UPDATE_SPECIFICATION_DATA,
     CHANGE_SPECIFICATIONS,
     GET_POKEMONS,
     GET_POKEMON_DETAILS,
 } from "./types";
 import PokemonContext from "./pokemonContext";
 import { v4 as uuidv4 } from "uuid";
+import {
+    getPokemonAbilities,
+    getPokemonForms,
+    getPokemonSpeciesInfo,
+    getPokemonTypes,
+} from "./helperFunctions";
 
 //useReducer is an alternative to useState.
 
@@ -61,8 +68,64 @@ const PokemonState = (props) => {
         }
     };
 
-    const changePokemonSpecifications = (specificationId, value) => {
+    const changePokemonSpecifications = async (specificationId, value) => {
         try {
+            if (state.pokemon) {
+                let newPokemondata = { ...state.pokemon };
+                if (value) {
+                    for (let item of state.pokemonSpecifications) {
+                        if (item.id == specificationId) {
+                            let moredetails;
+
+                            if (item.type == "abilities") {
+                                moredetails = await getPokemonAbilities(
+                                    state.pokemon.abilities
+                                );
+                            } else if (item.type == "forms") {
+                                moredetails = await getPokemonForms(
+                                    state.pokemon.forms
+                                );
+                            } else if (item.type == "species") {
+                                moredetails = await getPokemonSpeciesInfo(
+                                    state.pokemon.species.url
+                                );
+                            } else {
+                                moredetails = await getPokemonTypes(
+                                    state.pokemon.types
+                                );
+                            }
+
+                            if (newPokemondata.moreSpecificDetails) {
+                                newPokemondata.moreSpecificDetails.push({
+                                    ...item,
+                                    moredetails,
+                                });
+                            } else {
+                                newPokemondata.moreSpecificDetails = [
+                                    {
+                                        ...item,
+                                        moredetails,
+                                    },
+                                ];
+                            }
+                        }
+                    }
+                } else {
+                    let filteredData = state.pokemon.moreSpecificDetails.filter(
+                        (item) => item.id != specificationId
+                    );
+                    if (!filteredData.length) {
+                        newPokemondata.moreSpecificDetails = null;
+                    } else {
+                        newPokemondata.moreSpecificDetails = filteredData;
+                    }
+                }
+
+                dispatch({
+                    type: UPDATE_SPECIFICATION_DATA,
+                    payload: newPokemondata,
+                });
+            }
             dispatch({
                 type: CHANGE_SPECIFICATIONS,
                 payload: state.pokemonSpecifications.map((item) => {
@@ -85,6 +148,7 @@ const PokemonState = (props) => {
             const response = await fetch(
                 `https://pokeapi.co/api/v2/pokemon/${pokemonidorname}`
             );
+
             if (response.status == 404) {
                 return alert(`No pokemon of ${pokemonidorname} found`);
             }
@@ -93,51 +157,18 @@ const PokemonState = (props) => {
 
             for (let item of state.pokemonSpecifications) {
                 if (item.getinformation) {
-                    let moredetails = [];
+                    let moredetails;
 
                     if (item.type == "abilities") {
-                        for (let ele of data.abilities) {
-                            const response = await fetch(ele.ability.url);
-                            const specificdata = await response.json();
-                            let newObj = {
-                                effect_entries: specificdata.effect_entries,
-                            };
-                            moredetails.push(newObj);
-                        }
+                        moredetails = await getPokemonAbilities(data.abilities);
                     } else if (item.type == "forms") {
-                        for (let ele of data.forms) {
-                            const response = await fetch(ele.url);
-                            const specificdata = await response.json();
-                            let newObj = {
-                                is_battle_only: specificdata.is_battle_only,
-                                is_default: specificdata.is_default,
-                                version_group: specificdata.version_group.name,
-                            };
-                            moredetails.push(newObj);
-                        }
+                        moredetails = await getPokemonForms(data.forms);
                     } else if (item.type == "species") {
-                        const response = await fetch(data.species.url);
-                        const specificdata = await response.json();
-                        let newObj = {
-                            generation: specificdata.generation.name,
-                            color: specificdata.color.name,
-                            shape: specificdata.shape.name,
-                            capture_rate: specificdata.capture_rate,
-                            base_happiness: specificdata.base_happiness,
-                        };
-                        moredetails.push(newObj);
+                        moredetails = await getPokemonSpeciesInfo(
+                            data.species.url
+                        );
                     } else {
-                        for (let ele of data.types) {
-                            const response = await fetch(ele.type.url);
-                            const specificdata = await response.json();
-                            let newObj = {
-                                generation: specificdata.generation.name,
-                                type: specificdata.name,
-                                moves: specificdata.moves.length,
-                                pokemons: specificdata.pokemon.length,
-                            };
-                            moredetails.push(newObj);
-                        }
+                        moredetails = await getPokemonTypes(data.types);
                     }
 
                     selectedPokemonSpecifications.push({
