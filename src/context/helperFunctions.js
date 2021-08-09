@@ -57,9 +57,7 @@ const getPokemonTypes = async (pokemonTypes) => {
     return arr;
 };
 
-module.exports = {
-    getPokemonAbilities,
-    getPokemonForms,
-    getPokemonSpeciesInfo,
-    getPokemonTypes,
-};
+export const getPokemonAbilities = getPokemonAbilities 
+export const getPokemonForms = getPokemonForms
+export const getPokemonSpeciesInfo = getPokemonSpeciesInfo
+export const getPokemonTypes = getPokemonTypes
