@@ -9,10 +9,10 @@ import {
 import PokemonContext from "./pokemonContext";
 import { v4 as uuidv4 } from "uuid";
 import {
-    getPokemonAbilities,
-    getPokemonForms,
-    getPokemonSpeciesInfo,
-    getPokemonTypes,
+    getPokemonAbilitiesFunc,
+    getPokemonFormsFunc,
+    getPokemonSpeciesInfoFunc,
+    getPokemonTypesFunc,
 } from "./helperFunctions";
 
 //useReducer is an alternative to useState.
@@ -78,19 +78,19 @@ const PokemonState = (props) => {
                             let moredetails;
 
                             if (item.type == "abilities") {
-                                moredetails = await getPokemonAbilities(
+                                moredetails = await getPokemonAbilitiesFunc(
                                     state.pokemon.abilities
                                 );
                             } else if (item.type == "forms") {
-                                moredetails = await getPokemonForms(
+                                moredetails = await getPokemonFormsFunc(
                                     state.pokemon.forms
                                 );
                             } else if (item.type == "species") {
-                                moredetails = await getPokemonSpeciesInfo(
+                                moredetails = await getPokemonSpeciesInfoFunc(
                                     state.pokemon.species.url
                                 );
                             } else {
-                                moredetails = await getPokemonTypes(
+                                moredetails = await getPokemonTypesFunc(
                                     state.pokemon.types
                                 );
                             }
@@ -160,15 +160,17 @@ const PokemonState = (props) => {
                     let moredetails;
 
                     if (item.type == "abilities") {
-                        moredetails = await getPokemonAbilities(data.abilities);
+                        moredetails = await getPokemonAbilitiesFunc(
+                            data.abilities
+                        );
                     } else if (item.type == "forms") {
-                        moredetails = await getPokemonForms(data.forms);
+                        moredetails = await getPokemonFormsFunc(data.forms);
                     } else if (item.type == "species") {
-                        moredetails = await getPokemonSpeciesInfo(
+                        moredetails = await getPokemonSpeciesInfoFunc(
                             data.species.url
                         );
                     } else {
-                        moredetails = await getPokemonTypes(data.types);
+                        moredetails = await getPokemonTypesFunc(data.types);
                     }
 
                     selectedPokemonSpecifications.push({
