@@ -21,10 +21,6 @@ const BasicPokemonDetails = () => {
         pokemonBallImage6,
     ];
 
-    const randomImageFunction = () => {
-        return arr[Math.floor(Math.random() * 6) - 1];
-    };
-
     const {
         name,
         base_experience,
@@ -35,8 +31,13 @@ const BasicPokemonDetails = () => {
         moves,
         species,
         types,
+        randomImageId
     } = pokemon;
 
+        const randomImageFunction = () => {
+        return arr[randomImageId];
+    };
+    
     return (
         <Fragment>
             <div className="maindiv">
