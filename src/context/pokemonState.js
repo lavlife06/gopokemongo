@@ -186,6 +186,8 @@ const PokemonState = (props) => {
                 data.moreSpecificDetails = null;
             }
 
+            data.randomImageId = Math.floor(Math.random()*6)
+            
             dispatch({
                 type: GET_POKEMON_DETAILS,
                 payload: data,
