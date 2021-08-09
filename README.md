@@ -38,7 +38,7 @@
 This project is built with the latest React and ContextApi. React for frontend, ContextApi for state managment, used small libraries like uuid for getting unique ids.
 
 -   [React](https://reactjs.org/)
--   [ContextApi](https://react-redux.js.org/)
+-   [ContextApi](https://reactjs.org/docs/context.html/)
 
 <!-- GETTING STARTED -->
 
